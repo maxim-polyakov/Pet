@@ -9,26 +9,6 @@ export default async function (req, res, next) {
 
     try
     {
-        let [ dummy, token ] = req.headers.authorization.split(' ');
-        if (token == 'null')
-            token = null;
-
-        if (!token)
-        {
-            next();
-            return;
-        }
-
-        const env = dotenv.config()?.parsed;
-        const decoded = jwt.verify(token, env.JWT_SECRET);
-
-        const candidate = await User.findByPk(decoded.id);
-        if (!candidate)
-            throw new Error('Пользователь не найден');
-
-        //  Обновить дату последнего посещения пользователя.
-        await candidate.changed('updatedAt', true).save();
-
         next();
     }catch (error)
     {
