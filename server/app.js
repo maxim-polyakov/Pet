@@ -33,7 +33,7 @@ async function Timer() {
             status = 'alive'
         } else if (health <= 30 && health > 0) {
             status = 'sick'
-        } else if (health < 0) {
+        } else if (health < 0 || hungry > 100) {
             status = 'dead'
         }
 
