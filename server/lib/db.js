@@ -12,12 +12,17 @@ const db = new Sequelize(
         dialect: 'postgres',
         host: env.DB_HOST,
         port: env.DB_PORT,
+        schema:env.DB_SCHEMA,
         define: {
             timestamps: true,
             freezeTableName: true,
         },
+        ssl: true,
         dialectOptions: {
-            useUTC: false
+            useUTC: false,
+            ssl: {
+                "require": true
+            }
         },
         timezone: '+3:00'
     },
