@@ -74,7 +74,15 @@ const Tamagochi = () => {
         <button className="button" onClick={CreatePet}>CreatePet</button>
         <button className="button" onClick={Pets}>GetPets</button>
         <table>
-            <thead></thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Health</th>
+                <th>Hungry</th>
+                <th>Mood</th>
+                <th>Status</th>
+            </tr>
             <tbody></tbody>
         </table>
         <label>ID for feed</label>
