@@ -1,6 +1,6 @@
 import React from 'react';
 import './Tamagochi.module.css';
-import { Create_pet, Get_pets } from '../../http/pet/Pet_API';
+import { Create_pet, Get_pets, Feed, Heal, Play } from '../../http/pet/Pet_API';
 
 const Tamagochi = () => {
     const [ name, setName ] = React.useState('');
@@ -9,30 +9,46 @@ const Tamagochi = () => {
     const [ hungry, setHungry ] = React.useState('');
     const [ mood, setMood ] = React.useState('');
     const [ status, setStatus ] = React.useState('');
-
+    const [ id , setId ] = React.useState('');
     let createpetdata;
     let pets;
+    let feeddata;
+    let healdata;
+    let playdata;
     async function CreatePet() {
         createpetdata = await Create_pet(name, age, health, hungry, mood, status)
 
     }
 
     async function Pets() {
+
         pets = await Get_pets();
         const body = document.querySelector('tbody');
         let tags = "";
         pets.map(d => {
             tags += `<tr>
-                <td>| id ${d.id}</td>
-                <td>| name ${d.name}</td>
-                <td>| age ${d.age}</td>
-                <td>| health ${d.health}</td>
-                <td>| hungry | ${d.hungry}</td>
-                <td>| mood ${d.mood}</td>
-                <td>| status ${d.status}</td>
+                <td>${d.id}</td>
+                <td>${d.name}</td>
+                <td>${d.age}</td>
+                <td>${d.health}</td>
+                <td>${d.hungry}</td>
+                <td>${d.mood}</td>
+                <td>${d.status}</td>
                 </tr>`;
         })
         body.innerHTML = tags;
+    }
+
+    async function toFeed () {
+        feeddata = await Feed(id);
+    }
+
+    async function toHeal () {
+        healdata = await Heal(id);
+    }
+
+    async function toPlay(){
+        playdata = await Play(id);
     }
 
   return (
@@ -57,12 +73,16 @@ const Tamagochi = () => {
                onChange = {(e) => setStatus(e.target.value)} />
         <button className="button" onClick={CreatePet}>CreatePet</button>
         <button className="button" onClick={Pets}>GetPets</button>
-
         <table>
             <thead></thead>
             <tbody></tbody>
         </table>
-
+        <label>ID for feed</label>
+        <input type='text' id='input' placeholder='ID for feed'
+               onChange = {(e) => setId(e.target.value)} />
+        <button className="button" onClick={toFeed}>Feed</button>
+        <button className="button" onClick={toHeal}>Heal</button>
+        <button className="button" onClick={toPlay}>Play</button>
     </div>
   );
 };

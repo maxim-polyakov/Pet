@@ -44,3 +44,69 @@ export const Get_pets = async () => {
     }
 
 };
+
+export const Feed = async (id) => {
+    try
+    {
+        const { data } = await $host.post('/api/mypet/pet/feed', { id });
+
+        console.log(data);
+
+        if (data?.error)
+            throw new Error(data.error);
+
+        return data;
+    }catch (error)
+    {
+        alert(error);
+
+        return {
+            error: error.message
+        };
+    }
+
+};
+
+export const Heal = async (id) => {
+    try
+    {
+        const { data } = await $host.post('/api/mypet/pet/heal', { id });
+
+        console.log(data);
+
+        if (data?.error)
+            throw new Error(data.error);
+
+        return data;
+    }catch (error)
+    {
+        alert(error);
+
+        return {
+            error: error.message
+        };
+    }
+
+};
+
+export const Play = async (id) => {
+    try
+    {
+        const { data } = await $host.post('/api/mypet/pet/play', { id });
+
+        console.log(data);
+
+        if (data?.error)
+            throw new Error(data.error);
+
+        return data;
+    }catch (error)
+    {
+        alert(error);
+
+        return {
+            error: error.message
+        };
+    }
+
+};
