@@ -1,6 +1,6 @@
 import React from 'react';
 import './Tamagochi.module.css';
-import { Create_pet } from '../../http/pet/Pet_API';
+import { Create_pet, Get_pets } from '../../http/pet/Pet_API';
 
 const Tamagochi = () => {
     const [ name, setName ] = React.useState('');
@@ -10,11 +10,31 @@ const Tamagochi = () => {
     const [ mood, setMood ] = React.useState('');
     const [ status, setStatus ] = React.useState('');
 
-    let data;
+    let createpetdata;
+    let pets;
     async function CreatePet() {
-        data = await Create_pet(name, age, health, hungry, mood, status)
+        createpetdata = await Create_pet(name, age, health, hungry, mood, status)
 
     }
+
+    async function Pets() {
+        pets = await Get_pets();
+        const body = document.querySelector('tbody');
+        let tags = "";
+        pets.map(d => {
+            tags += `<tr>
+                <td>| id ${d.id}</td>
+                <td>| name ${d.name}</td>
+                <td>| age ${d.age}</td>
+                <td>| health ${d.health}</td>
+                <td>| hungry | ${d.hungry}</td>
+                <td>| mood ${d.mood}</td>
+                <td>| status ${d.status}</td>
+                </tr>`;
+        })
+        body.innerHTML = tags;
+    }
+
   return (
     <div>
         <label>Name</label>
@@ -36,6 +56,13 @@ const Tamagochi = () => {
         <input type='text' id='input' placeholder='Input status'
                onChange = {(e) => setStatus(e.target.value)} />
         <button className="button" onClick={CreatePet}>CreatePet</button>
+        <button className="button" onClick={Pets}>GetPets</button>
+
+        <table>
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+
     </div>
   );
 };

@@ -20,4 +20,27 @@ export const Create_pet = async (name, age, health, hungry, mood, status) => {
             error: error.message
         };
     }
+
+};
+
+export const Get_pets = async () => {
+    try
+    {
+        const { data } = await $host.get('/api/mypet/pets');
+
+        console.log(data);
+
+        if (data?.error)
+            throw new Error(data.error);
+
+        return data;
+    }catch (error)
+    {
+        alert(error);
+
+        return {
+            error: error.message
+        };
+    }
+
 };
