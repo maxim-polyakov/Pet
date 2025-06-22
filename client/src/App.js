@@ -1,5 +1,5 @@
 import React from 'react'
-import Tamagochi from './components/hero/Tamagochi.tsx'
+import Tamagochi from './components/tamagochi/Tamagochi.tsx'
 
 
 function App() {
