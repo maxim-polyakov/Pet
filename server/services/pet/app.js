@@ -50,9 +50,7 @@ async function Timer() {
     }
 }
 
-const env = dotenv.config()?.parsed;
-
-const ServerPort = env?.SERVER_PORT ?? 5000;
+const ServerPort = process.env.SERVER_PORT ?? 5000;
 
 //  Инициализация expressjs.
 const app = express();

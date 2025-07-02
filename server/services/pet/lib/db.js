@@ -1,18 +1,16 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 
-const env = dotenv.config()?.parsed;
-
 //  Объект для работы с БД, экземпляр класса sequelize.
 const db = new Sequelize(
-    env.DB_NAME,
-    env.DB_USER,
-    env.DB_PASSWORD,
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
     {
         dialect: 'postgres',
-        host: env.DB_HOST,
-        port: env.DB_PORT,
-        schema:env.DB_SCHEMA,
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        schema: process.env.DB_SCHEMA,
         define: {
             timestamps: true,
             freezeTableName: true,
