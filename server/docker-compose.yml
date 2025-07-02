@@ -12,3 +12,10 @@ services:
       - DB_PASSWORD=npg_e1j3CoBsItyd
       - DB_SCHEMA=public
       - JWT_SECRET=UmisTestSignKey
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "5000:5000"
+    environment:
+      - PET_SERVICE_URL=http://pet:5001
+      - PORT=5000
