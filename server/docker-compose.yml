@@ -19,3 +19,8 @@ services:
     environment:
       - PET_SERVICE_URL=http://pet:5001
       - PORT=5000
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
