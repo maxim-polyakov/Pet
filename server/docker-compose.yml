@@ -1,5 +1,14 @@
 services:
-  web:
+  зуе:
     build: ./services/pet
     ports:
-      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - SERVER_PORT=5001
+      - DB_HOST=ep-round-paper-091468-pooler.us-east-2.aws.neon.tech
+      - DB_PORT=5432
+      - DB_NAME=BotsMemory
+      - DB_USER=maxim7012
+      - DB_PASSWORD=npg_e1j3CoBsItyd
+      - DB_SCHEMA=public
+      - JWT_SECRET=UmisTestSignKey
