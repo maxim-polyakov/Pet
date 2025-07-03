@@ -89,7 +89,7 @@ class Url {
 
             function logMessage(msg) {
                 console.log('Received:', msg.content.toString());
-                message = msg.content.toString();
+                message = msg.content;
             }
             return res.json(message);
         } catch (error) {
