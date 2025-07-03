@@ -84,9 +84,10 @@ class Url {
 
             const conn = await amqp.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();
-            ch.consume(queue, (msg) => {
+            let res = ch.consume(queue, (msg) => {
                 if (msg !== null) {
                     console.log('Received:', msg.content.toString());
+                    message = msg.content
                     ch.ack(msg);
                     return msg.content
                 } else {
@@ -94,7 +95,7 @@ class Url {
                 }
             });
 
-            return res.json(message);
+            return res.json(res);
         } catch (error) {
             console.log(error)
             res.status(500).send(error);
