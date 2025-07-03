@@ -1,5 +1,5 @@
 import { Pets } from '../../models/pets.js';
-const amqp = require('amqplib');
+import amqp from 'amqplib';
 
 class Url {
     //  Проверка токена авторизации.
