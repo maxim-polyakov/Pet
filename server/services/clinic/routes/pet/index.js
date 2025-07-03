@@ -1,15 +1,10 @@
 import * as express from 'express';
 
-import petController from '../../controllers/pet/index.js';
+import clinicController from '../../controllers/pet/index.js';
 
-const petRouter = new express.Router();
+const clinicRouter = new express.Router();
 
 //  Маршрутизатор отвечающий за обработку запросов связанных с авторизацией.
-petRouter.get('/pets', petController.pets);
-petRouter.post('/pet', petController.pet);
-petRouter.post('/pet/feed', petController.feed);
-petRouter.post('/pet/play', petController.play);
-petRouter.post('/pet/heal', petController.heal);
-petRouter.get('/pet/pop', petController.pop);
+clinicRouter.get('/pet/pop', clinicController.heal);
 
 export default petRouter;

@@ -2,7 +2,7 @@ import { DataTypes, fn } from "sequelize";
 import db from "../lib/db.js";
 
 //  Описывает способ авторизации - какого-то поставщика данных для авторизации, которым система может доверять.
-export const Pets = db.define('pets', {
+export const Clinic = db.define('clinic', {
     id: {
         type: DataTypes.UUID, primaryKey: true, defaultValue: fn('gen_random_uuid')
     },
