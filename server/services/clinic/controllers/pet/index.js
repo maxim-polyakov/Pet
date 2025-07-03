@@ -86,6 +86,7 @@ class Url {
                 queueOptions: {durable: true}
             }, async (msg) => {
                 message = msg;
+                return res.json(msg)
             })
 
             await sub.close();
