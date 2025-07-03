@@ -106,7 +106,7 @@ class Url {
             ch.sendToQueue(queue, Buffer.from(JSON.stringify(result)));
             return res.json(result);
         } catch (error) {
-            res.status(500).send(error);
+            res.status(500);
             return res.json(error)
         }
     }
