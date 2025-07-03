@@ -80,15 +80,14 @@ class Url {
     async pop(req, res, next) {
         try {
             const queue = 'pets';
-            let message = "";
 
-            amqp.connect('amqp://rabbitmq', (err,conn) => {
+            amqp.connect('amqp://rabbitmq:5672', (err,conn) => {
                 conn.createChannel((err,ch) => {
                     ch.assertQueue(queue, { durable: false });
                     ch.consume(queue, (msg) => {
                         if (msg !== null) {
                             console.log(msg.content.toString());
-                            message = msg.content.toString();
+                            var message = msg.content.toString();
                             ch2.ack(msg);
                         } else {
                             console.log('Consumer cancelled by server');
