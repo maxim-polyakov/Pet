@@ -15,6 +15,7 @@
     "pg-hstore": "^2.3.4",
     "amqplib": "^0.10.8",
     "sequelize": "^6.37.5",
-    "sequelize-cli": "^6.6.2"
+    "sequelize-cli": "^6.6.2",
+    "parse-json": "^8.3.0"
   }
 }

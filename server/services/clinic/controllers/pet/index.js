@@ -1,5 +1,6 @@
 import { Pets } from '../../models/pets.js';
 import amqp from 'amqplib';
+import parseJson, {JSONError} from 'parse-json';
 
 class Url {
     //  Проверка токена авторизации.
@@ -89,7 +90,8 @@ class Url {
 
             function logMessage(msg) {
                 console.log('Received:', msg.content.toString());
-                message = msg.content;
+                message = msg.content.toString();
+                message = JSON.parse(message);
             }
             return res.json(message);
         } catch (error) {
