@@ -1,3 +1,3 @@
 //  Файл, где подключаются все модели.
 
-import { Pets } from './pets.js';
+import { Clinic } from './clinic.js';

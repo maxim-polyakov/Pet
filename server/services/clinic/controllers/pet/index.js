@@ -1,4 +1,4 @@
-import { Clinic } from '../../models/pets.js';
+import { Clinic } from '../../models/clinic.js';
 import amqp from 'amqplib';
 import parseJson, {JSONError} from 'parse-json';
 
@@ -29,7 +29,7 @@ class Url {
                     status: message[i].status
                 });
             }
-           
+
             return res.json(message[0]);
         } catch (error) {
             console.log(error)
