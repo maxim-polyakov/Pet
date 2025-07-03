@@ -21,7 +21,7 @@ class Url {
             }
 
             for (let i =0; i< message.length; i++) {
-                const createResult = await Clinic.create({
+                await Clinic.create({
                     name: message[i].name,
                     age: message[i].age,
                     health: message[i].health,
@@ -31,7 +31,7 @@ class Url {
                 });
             }
 
-            return res.json(message[0]);
+            return res.json(message);
         } catch (error) {
             console.log(error)
             res.status(500).send(error);
