@@ -1,5 +1,5 @@
 import { Pets } from '../../models/pets.js';
-
+import {Connection} from 'rabbitmq-client'
 
 class Url {
     //  Проверка токена авторизации.
@@ -71,6 +71,28 @@ class Url {
             });
             await createResult.save()
             return res.json(createResult);
+
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    }
+
+    async pop(req, res, next) {
+        try {
+
+            const rabbit = new Connection('amqp://rabbitmq')
+            const sub = rabbit.createConsumer({
+                queue: 'pets',
+                queueOptions: {durable: true},
+                // handle 2 messages at a time
+                qos: {prefetchCount: 2},
+                // Optionally ensure an exchange exists
+                exchanges: [{exchange: 'pets', type: 'topic'}],
+                // With a "topic" exchange, messages matching this pattern are routed to the queue
+                queueBindings: [{exchange: 'pets', routingKey: 'users.*'}],
+            }, async (msg) => {
+                return res.json(msg);
+            })
 
         } catch (error) {
             res.status(500).send(error);

@@ -1,5 +1,5 @@
 import { Pets } from '../../models/pets.js';
-
+import {Connection} from 'rabbitmq-client'
 
 class Url {
     //  Проверка токена авторизации.
@@ -88,6 +88,33 @@ class Url {
             });
             await createResult.save()
             return res.json(createResult);
+
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    }
+
+    async push(req, res, next) {
+        try {
+            const { id } = req.body;
+
+            const result = await Pets.findAll();
+            const rabbit = new Connection('amqp://rabbitmq')
+
+            const pub = rabbit.createPublisher({
+                // Enable publish confirmations, similar to consumer acknowledgements
+                confirm: true,
+                // Enable retries
+                maxAttempts: 2,
+                // Optionally ensure the existence of an exchange before we use it
+                exchanges: [{exchange: 'pets', type: 'topic'}]
+            })
+
+            await pub.send(
+                {exchange: 'my-events', routingKey: 'users.visit'}, // metadata
+                res.json(result))
+
+            return res.json(result);
 
         } catch (error) {
             res.status(500).send(error);

@@ -10,5 +10,6 @@ petRouter.post('/pet', petController.pet);
 petRouter.post('/pet/feed', petController.feed);
 petRouter.post('/pet/play', petController.play);
 petRouter.post('/pet/heal', petController.heal);
+petRouter.get('/pet/pop', petController.pop);
 
 export default petRouter;
