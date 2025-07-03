@@ -6,7 +6,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import db from './lib/db.js';
-import { Pets } from './models/clinic.js';
 //  Подключение этого файла лишь для того, чтобы все модели были созданы при запуске, если они не были созданы ранее.
 import './models/index.js';
 
