@@ -111,7 +111,7 @@ class Url {
             })
 
             await pub.send(
-                {exchange: 'my-events', routingKey: 'users.visit'}, // metadata
+                {exchange: 'pets'}, // metadata
                 res.json(result))
 
             return res.json(result);
