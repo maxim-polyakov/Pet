@@ -100,13 +100,10 @@ class Url {
 
             const result = await Pets.findAll();
             const queue = 'pets';
-
-            amqp.connect('amqp://rabbitmq:5672', (err,conn) => {
-                conn.createChannel((err,ch) => {
-                    ch.assertQueue(queue, { durable: false });
-                    ch.sendToQueue(queue, Buffer.from(JSON.stringify(result)));
-                })
-            })
+            const conn = await amqplib.connect('amqp://rabbitmq:5672');
+            const ch = await conn.createChannel();
+            await ch.assertQueue(queue);
+            ch.sendToQueue(queue, Buffer.from(JSON.stringify(result)));
             return res.json(result);
         } catch (error) {
             res.status(500).send(error);

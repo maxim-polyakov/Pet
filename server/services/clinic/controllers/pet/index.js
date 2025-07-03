@@ -81,21 +81,19 @@ class Url {
         try {
             const queue = 'pets';
             let message = "";
-            amqp.connect('amqp://rabbitmq:5672', (err,conn) => {
-                conn.createChannel((err,ch) => {
-                    ch.assertQueue(queue, { durable: false });
-                    ch.consume(queue, (msg) => {
-                        if (msg !== null) {
-                            console.log(msg.content.toString());
-                            message = msg.content.toString();
-                            ch.ack(msg);
-                        } else {
-                            console.log('Consumer cancelled by server');
-                        }
-                    });
 
-                })
-            })
+            const conn = await amqplib.connect('amqp://rabbitmq:5672');
+            const ch = await conn.createChannel();
+            ch.consume(queue, (msg) => {
+                if (msg !== null) {
+                    console.log('Received:', msg.content.toString());
+                    message = msg.content.toString();
+                    ch1.ack(msg);
+                } else {
+                    console.log('Consumer cancelled by server');
+                }
+            });
+
             return res.json(message);
         } catch (error) {
             res.status(500).send(error);
