@@ -97,7 +97,6 @@ class Url {
     async push(req, res, next) {
         try {
             const { id } = req.body;
-
             const result = await Pets.findAll();
             const queue = 'pets';
             const conn = await amqplib.connect('amqp://rabbitmq');
@@ -106,7 +105,8 @@ class Url {
             ch.sendToQueue(queue, Buffer.from(JSON.stringify(result)));
             return res.json(result);
         } catch (error) {
-            res.status(500);
+            console.log(error)
+            res.status(500).send(error);
             return res.json(error)
         }
     }
