@@ -101,6 +101,9 @@ class Url {
             const queue = 'pets';
             const conn = await amqp.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();
+            var q = conn.queue(queue, function (qu) {
+                console.log('Queue ' + qu.name + ' is open');
+            });
             await ch.assertQueue(queue);
             ch.sendToQueue(queue, Buffer.from(JSON.stringify(result)));
             return res.json(result);
