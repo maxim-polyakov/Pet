@@ -84,18 +84,9 @@ class Url {
 
             const conn = await amqp.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();
-            ch.consume(queue, (msg) => {
-                if (msg !== null) {
-                    console.log('Received:', msg.content.toString());
-                    message = msg.content
-                    ch.ack(msg);
-                    return msg.content
-                } else {
-                    console.log('Consumer cancelled by server');
-                }
-            });
+            let response = await ch.consume(queue, message, {noAck: false})
 
-            return res.json(message);
+            return res.json(message.content.toString());
         } catch (error) {
             console.log(error)
             res.status(500).send(error);
