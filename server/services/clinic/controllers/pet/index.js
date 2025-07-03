@@ -89,8 +89,9 @@ class Url {
 
             function logMessage(msg) {
                 console.log('Received:', msg.content.toString());
+                message = msg.content.toString();
             }
-            return res.json(response);
+            return res.json(message);
         } catch (error) {
             console.log(error)
             res.status(500).send(error);
