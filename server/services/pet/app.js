@@ -13,6 +13,43 @@ import './models/index.js';
 import apiRouter from './routes/index.js';
 
 
+async function Timer() {
+    const pets = await Pets.findAll();
+    for (let i = 0; i < pets.length; i++) {
+
+        const result = await Pets.findOne({ where: { id:pets[i].id }});
+        let age = result.age + 1;
+        let health = 0
+        let status = 'alive'
+        if (result.hungry > 70) {
+            health = result.health - 5;
+        } else {
+            health = result.health - 2;
+        }
+        let hungry = result.hungry + 3;
+        let mood = (result.health + (100 - result.hungry)) / 2;
+
+        if (health > 30) {
+            status = 'alive'
+        } else if (health <= 30 && health > 0) {
+            status = 'sick'
+        } else if (health < 0 || hungry > 100) {
+            status = 'dead'
+        }
+
+
+        const createResult = await result.update({
+            age: age,
+            health: health,
+            hungry: hungry,
+            mood: mood,
+            status: status
+        });
+        await createResult.save()
+
+    }
+}
+
 const ServerPort = process.env.SERVER_PORT ?? 5000;
 
 //  Инициализация expressjs.
@@ -33,6 +70,10 @@ const start = async () => {
     {
         await db.authenticate();
         await db.sync()
+            .then(async () => {
+                setInterval(Timer, 100000);
+
+            })
         app.listen(ServerPort, listeningListener);
     }catch (error)
     {
