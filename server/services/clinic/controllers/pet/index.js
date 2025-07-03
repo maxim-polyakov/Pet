@@ -83,7 +83,8 @@ class Url {
             const rabbit = new Connection('amqp://rabbitmq')
             const sub = rabbit.createConsumer({
                 queue: 'pets',
-                queueOptions: {durable: true}
+                queueOptions: {durable: true},
+                qos: {prefetchCount: 1}
             }, async (msg) => {
                 message = msg;
                 return res.json(msg)
