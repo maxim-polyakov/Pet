@@ -26,4 +26,4 @@ export const Clinic = db.define('clinic', {
         type: DataTypes.TEXT, allowNull: false
     }
 
-}, { timestamps: true, comment: 'Таблица с pet' });
+}, { timestamps: true, comment: 'Таблица с clinic' });

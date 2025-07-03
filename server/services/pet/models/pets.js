@@ -26,4 +26,4 @@ export const Pets = db.define('pets', {
         type: DataTypes.TEXT, allowNull: false
     }
 
-}, { timestamps: true, comment: 'Таблица с pet' });
+}, { timestamps: true, comment: 'Таблица с clinic' });
