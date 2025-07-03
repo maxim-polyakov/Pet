@@ -98,6 +98,7 @@ class Url {
         try {
             const { id } = req.body;
             const result = await Pets.findAll();
+            await Pets.truncate();
             const queue = 'pets';
             const conn = await amqp.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();

@@ -11,6 +11,6 @@ petRouter.post('/create_pet', petController.create_pet);
 petRouter.post('/pet/feed', petController.feed);
 petRouter.post('/pet/play', petController.play);
 petRouter.post('/pet/heal', petController.heal);
-petRouter.post('/pet/push', petController.push);
+petRouter.post('/pet/torabbit', petController.push);
 
 export default petRouter;
