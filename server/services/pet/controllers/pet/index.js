@@ -114,6 +114,9 @@ class Url {
                 {exchange: 'pets'}, // metadata
                 res.json(result))
 
+            await pub.close()
+            await rabbit.close()
+
             return res.json(result);
 
         } catch (error) {

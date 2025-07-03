@@ -93,7 +93,8 @@ class Url {
             }, async (msg) => {
                 return res.json(msg);
             })
-
+            await sub.close()
+            await rabbit.close()
         } catch (error) {
             res.status(500).send(error);
         }
