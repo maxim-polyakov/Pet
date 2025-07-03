@@ -1,5 +1,5 @@
 import { Pets } from '../../models/pets.js';
-import {Connection} from 'rabbitmq-client'
+import Connection from 'rabbitmq-client'
 
 class Url {
     //  Проверка токена авторизации.
