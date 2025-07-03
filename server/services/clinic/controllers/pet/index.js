@@ -90,7 +90,6 @@ class Url {
             function logMessage(msg) {
                 console.log('Received:', msg.content.toString());
             }
-            let result = logMessage
             return res.json(response);
         } catch (error) {
             console.log(error)
