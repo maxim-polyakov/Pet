@@ -88,7 +88,7 @@ class Url {
                 if (msg !== null) {
                     console.log('Received:', msg.content.toString());
                     message = msg.content.toString();
-                    ch1.ack(msg);
+                    ch.ack(msg);
                 } else {
                     console.log('Consumer cancelled by server');
                 }
