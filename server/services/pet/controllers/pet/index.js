@@ -103,12 +103,12 @@ class Url {
             const ch = await rabbit.acquire();
             await ch.queueDeclare({queue: 'pets', exclusive: true});
 
-            await ch.basicPublish({routingKey: 'pets'}, res.json(result));
+            await ch.basicPublish({routingKey: 'pets'}, result);
 
             await ch.close();
             await rabbit.close();
 
-            return res.json(result);
+            return result;
 
         } catch (error) {
             res.status(500).send(error);
