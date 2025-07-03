@@ -81,17 +81,18 @@ class Url {
         try {
             let message = "";
             const rabbit = new Connection('amqp://rabbitmq')
-            const sub = rabbit.createConsumer({
-                queue: 'pets',
-                queueOptions: {durable: true},
-                qos: {prefetchCount: 1}
-            }, async (msg) => {
-                message = msg;
-                return res.json(msg)
-            })
+            const ch = await rabbit.acquire()
 
-            await sub.close();
-            await rabbit.close();
+            await ch.queueDeclare({queue: 'pets', exclusive: true})
+
+            await ch.basicConsume({queue: 'pets'}, (msg) => {
+                console.log(msg)
+                message = msg;
+                // acknowledge receipt of the message
+                ch.basicAck({deliveryTag: msg.deliveryTag})
+            })
+            await ch.close()
+            await rabbit.close()
             return res.json(message);
         } catch (error) {
             res.status(500).send(error);

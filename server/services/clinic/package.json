@@ -13,8 +13,8 @@
     "luxon": "^3.5.0",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
+    "rabbitmq-client": "^3.3.0",
     "sequelize": "^6.37.5",
-    "sequelize-cli": "^6.6.2",
-    "rabbitmq-client": "^5.0.4"
+    "sequelize-cli": "^6.6.2"
   }
 }

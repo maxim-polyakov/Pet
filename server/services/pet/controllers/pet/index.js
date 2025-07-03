@@ -99,17 +99,14 @@ class Url {
             const { id } = req.body;
 
             const result = await Pets.findAll();
-            const rabbit = new Connection('amqp://rabbitmq')
+            const rabbit = new Connection('amqp://rabbitmq');
+            const ch = await rabbit.acquire();
+            await ch.queueDeclare({queue: 'pets', exclusive: true});
 
-            const pub = rabbit.createPublisher({
-                // Enable publish confirmations, similar to consumer acknowledgements
-                confirm: true,
-                // Enable retries
-                maxAttempts: 2
-            })
-            await pub.send('pets', res.json(result))
-            await pub.close()
-            await rabbit.close()
+            await ch.basicPublish({routingKey: 'pets'}, res.json(result));
+
+            await ch.close();
+            await rabbit.close();
 
             return res.json(result);
 
