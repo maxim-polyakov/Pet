@@ -87,8 +87,8 @@ class Url {
             ch.consume(queue, (msg) => {
                 if (msg !== null) {
                     console.log('Received:', msg.content.toString());
-                    message = msg.content.toString();
                     ch.ack(msg);
+                    return res.json(msg)
                 } else {
                     console.log('Consumer cancelled by server');
                 }
