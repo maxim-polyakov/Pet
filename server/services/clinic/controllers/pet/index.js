@@ -82,7 +82,7 @@ class Url {
             const queue = 'pets';
             let message = "";
 
-            const conn = await amqplib.connect('amqp://rabbitmq:5672');
+            const conn = await amqplib.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();
             ch.consume(queue, (msg) => {
                 if (msg !== null) {
