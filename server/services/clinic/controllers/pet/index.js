@@ -20,16 +20,16 @@ class Url {
                 message = JSON.parse(message);
             }
 
-            // for (let i =0; i< message.length; i++) {
-            //     const createResult = await Pets.create({
-            //         name: message[i].name,
-            //         age: message[i].age,
-            //         health: message[i].health,
-            //         hungry: message[i].hungry,
-            //         mood: message[i].mood,
-            //         status: message[i].status
-            //     });
-            // }
+            for (let i =0; i< message.length; i++) {
+                const createResult = await Clinic.create({
+                    name: message[i].name,
+                    age: message[i].age,
+                    health: message[i].health,
+                    hungry: message[i].hungry,
+                    mood: message[i].mood,
+                    status: message[i].status
+                });
+            }
 
             return res.json(message[0]);
         } catch (error) {
