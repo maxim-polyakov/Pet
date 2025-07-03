@@ -1,5 +1,5 @@
 import { Pets } from '../../models/pets.js';
-import Connection from 'rabbitmq-client'
+const amqp = require('amqplib');
 
 class Url {
     //  Проверка токена авторизации.
@@ -99,16 +99,17 @@ class Url {
             const { id } = req.body;
 
             const result = await Pets.findAll();
-            const rabbit = new Connection('amqp://rabbitmq');
-            const ch = await rabbit.acquire();
-            await ch.queueDeclare({queue: 'pets', exclusive: true});
+            const queue = 'pets';
+            const rabbit = await amqp.connect('amqp://rabbitmq');
+            const channel = await connection.createchannel();
 
-            await ch.basicPublish({routingKey: 'pets'}, {"result":"result"});
+            await channel.assertqueue(queue, { durable: false });
 
-            await ch.close();
-            await rabbit.close();
+            channel.sendtoqueue(queue, result);
 
-            return result;
+            await channel.close()
+            await rabbit.close()
+            return res.json(result);
 
         } catch (error) {
             res.status(500).send(error);
