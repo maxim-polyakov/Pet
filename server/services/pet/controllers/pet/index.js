@@ -113,6 +113,7 @@ class Url {
 
         } catch (error) {
             res.status(500).send(error);
+            return res.json(error)
         }
     }
 

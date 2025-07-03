@@ -97,6 +97,7 @@ class Url {
             return res.json(message);
         } catch (error) {
             res.status(500).send(error);
+            return res.json(error)
         }
     }
 
