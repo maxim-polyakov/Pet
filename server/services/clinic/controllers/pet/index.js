@@ -79,22 +79,18 @@ class Url {
 
     async pop(req, res, next) {
         try {
-
+            let message = "";
             const rabbit = new Connection('amqp://rabbitmq')
             const sub = rabbit.createConsumer({
                 queue: 'pets',
-                queueOptions: {durable: true},
-                // handle 2 messages at a time
-                qos: {prefetchCount: 2},
-                // Optionally ensure an exchange exists
-                exchanges: [{exchange: 'pets', type: 'topic'}],
-                // With a "topic" exchange, messages matching this pattern are routed to the queue
-                queueBindings: [{exchange: 'pets', routingKey: 'users.*'}],
+                queueOptions: {durable: true}
             }, async (msg) => {
-                return res.json(msg);
+                message = msg;
             })
-            await sub.close()
-            await rabbit.close()
+
+            await sub.close();
+            await rabbit.close();
+            return res.json(message);
         } catch (error) {
             res.status(500).send(error);
         }

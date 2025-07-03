@@ -105,15 +105,9 @@ class Url {
                 // Enable publish confirmations, similar to consumer acknowledgements
                 confirm: true,
                 // Enable retries
-                maxAttempts: 2,
-                // Optionally ensure the existence of an exchange before we use it
-                exchanges: [{exchange: 'pets', type: 'topic'}]
+                maxAttempts: 2
             })
-
-            await pub.send(
-                {exchange: 'pets'}, // metadata
-                res.json(result))
-
+            await pub.send('pets', res.json(result))
             await pub.close()
             await rabbit.close()
 
