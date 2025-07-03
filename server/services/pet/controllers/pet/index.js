@@ -1,5 +1,5 @@
 import { Pets } from '../../models/pets.js';
-import amqp from 'amqplib/callback_api'
+import amqp from 'amqplib';
 
 class Url {
     //  Проверка токена авторизации.
