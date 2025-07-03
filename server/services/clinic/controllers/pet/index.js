@@ -11,7 +11,7 @@ class Url {
 
             const conn = await amqp.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();
-            let response = await ch.consume(queue, Message, {noAck: false})
+            await ch.consume(queue, Message, {noAck: false})
 
 
             function Message(msg) {
@@ -19,16 +19,17 @@ class Url {
                 message = msg.content.toString();
                 message = JSON.parse(message);
             }
-            for (let i =0; i< message.length; i++) {
-                const createResult = await Pets.create({
-                    name: message[i].name,
-                    age: message[i].age,
-                    health: message[i].health,
-                    hungry: message[i].hungry,
-                    mood: message[i].mood,
-                    status: message[i].status
-                });
-            }
+
+            // for (let i =0; i< message.length; i++) {
+            //     const createResult = await Pets.create({
+            //         name: message[i].name,
+            //         age: message[i].age,
+            //         health: message[i].health,
+            //         hungry: message[i].hungry,
+            //         mood: message[i].mood,
+            //         status: message[i].status
+            //     });
+            // }
 
             return res.json(message[0]);
         } catch (error) {
