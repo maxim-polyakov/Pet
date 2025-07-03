@@ -99,7 +99,7 @@ class Url {
             const { id } = req.body;
             const result = await Pets.findAll();
             const queue = 'pets';
-            const conn = await amqplib.connect('amqp://rabbitmq');
+            const conn = await amqp.connect('amqp://rabbitmq:5672');
             const ch = await conn.createChannel();
             await ch.assertQueue(queue);
             ch.sendToQueue(queue, Buffer.from(JSON.stringify(result)));
