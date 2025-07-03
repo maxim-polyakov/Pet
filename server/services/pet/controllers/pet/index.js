@@ -1,5 +1,5 @@
 import { Pets } from '../../models/pets.js';
-import amqp from 'amqplib';
+import amqp from 'amqplib/callback_api'
 
 class Url {
     //  Проверка токена авторизации.
@@ -100,17 +100,14 @@ class Url {
 
             const result = await Pets.findAll();
             const queue = 'pets';
-            const rabbit = await amqp.connect('amqp://rabbitmq');
-            const channel = await connection.createchannel();
 
-            await channel.assertqueue(queue, { durable: false });
-
-            channel.sendtoqueue(queue, result);
-
-            await channel.close()
-            await rabbit.close()
+            amqp.connect('amqp://rabbitmq', (err,conn) => {
+                conn.createChannel((err,ch) => {
+                    ch.assertQueue(queue, { durable: false });
+                    ch.sendToQueue(queue, Buffer.from(JSON.stringify(result)));
+                })
+            })
             return res.json(result);
-
         } catch (error) {
             res.status(500).send(error);
             return res.json(error)

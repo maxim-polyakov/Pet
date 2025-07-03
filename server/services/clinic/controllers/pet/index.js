@@ -1,5 +1,5 @@
 import { Pets } from '../../models/pets.js';
-import amqp from 'amqplib';
+import amqp from 'amqplib/callback_api'
 
 class Url {
     //  Проверка токена авторизации.
@@ -81,19 +81,22 @@ class Url {
         try {
             const queue = 'pets';
             let message = "";
-            const rabbit = await amqp.connect('amqp://rabbitmq');
-            const channel = await connection.createchannel();
 
-            await channel.assertqueue(queue, { durable: false });
+            amqp.connect('amqp://rabbitmq', (err,conn) => {
+                conn.createChannel((err,ch) => {
+                    ch.assertQueue(queue, { durable: false });
+                    ch.consume(queue, (msg) => {
+                        if (msg !== null) {
+                            console.log(msg.content.toString());
+                            message = msg.content.toString();
+                            ch2.ack(msg);
+                        } else {
+                            console.log('Consumer cancelled by server');
+                        }
+                    });
 
-            channel.consume(queue, (msg) => {
-                if (msg !== null) {
-                    message = msg.content.toString();
-                    channel.ack(msg);
-                }
-            });
-            await channel.close()
-            await rabbit.close()
+                })
+            })
             return res.json(message);
         } catch (error) {
             res.status(500).send(error);
