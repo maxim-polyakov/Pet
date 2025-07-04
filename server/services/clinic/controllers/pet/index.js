@@ -11,7 +11,8 @@ class Url {
             const conn = await amqp.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();
             let message = await ch.get(queue, { noack: false });
-            message = JSON.parse(message);
+            console.log(message);
+            //message = JSON.parse(message);
 
 
             for (let i =0; i< message.length; i++) {
