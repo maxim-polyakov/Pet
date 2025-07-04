@@ -104,6 +104,8 @@ class Url {
             const ch = await conn.createChannel();
             await ch.assertQueue(queue);
             ch.sendToQueue(queue, Buffer.from(JSON.stringify(result)));
+            await ch.close();
+            await conn.close();
             return res.json(result);
         } catch (error) {
             console.log(error)

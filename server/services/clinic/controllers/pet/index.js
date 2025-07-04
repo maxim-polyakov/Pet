@@ -4,21 +4,21 @@ import parseJson, {JSONError} from 'parse-json';
 
 class Url {
 
-    constructor() {
-        this.messages = [];
-    }
-
     async heal(req, res, next) {
         try {
             const queue = 'pets';
-
-
+            let messages = []
             const conn = await amqp.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();
-            let message = await ch.get(queue, { noack: false });
-            message = JSON.parse(message.content.toString());
 
-            this.messages.push(message);
+            let message
+            do {
+                message = await ch.get(queue, { noack: false });
+                message = JSON.parse(message.content.toString());
+                messages.push(message);
+            } while (message);
+
+
 
             for (let i =0; i< message.length; i++) {
                 await Clinic.create({
@@ -30,8 +30,10 @@ class Url {
                     status: message[i].status
                 });
             }
+            await ch.close();
+            await conn.close();
 
-            return res.json(this.messages);
+            return res.json(messages);
         } catch (error) {
             console.log(error)
             res.status(500).send(error);
