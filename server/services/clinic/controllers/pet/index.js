@@ -14,8 +14,11 @@ class Url {
             let message
             do {
                 message = await ch.get(queue, { noack: false });
-                message = JSON.parse(message.content.toString());
-                messages.push(message);
+                if (message) {
+                    message = JSON.parse(message.content.toString());
+                    messages.push(message);
+                }
+
             } while (message);
 
 
