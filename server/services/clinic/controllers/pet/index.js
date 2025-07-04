@@ -4,7 +4,9 @@ import parseJson, {JSONError} from 'parse-json';
 
 class Url {
 
-    messages;
+    constructor() {
+        this.messages = [];
+    }
 
     async heal(req, res, next) {
         try {
@@ -14,7 +16,7 @@ class Url {
             const conn = await amqp.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();
             let message = await ch.get(queue, { noack: false });
-            message = JSON.parse(message.content.toString());
+            this.message = JSON.parse(message.content.toString());
 
             this.messages.push(message);
 
