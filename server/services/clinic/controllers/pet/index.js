@@ -4,7 +4,7 @@ import parseJson, {JSONError} from 'parse-json';
 
 class Url {
 
-    messages = []
+    messages;
 
     async heal(req, res, next) {
         try {
