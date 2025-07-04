@@ -7,18 +7,12 @@ class Url {
     async heal(req, res, next) {
         try {
             const queue = 'pets';
-            let message = "";
 
             const conn = await amqp.connect('amqp://rabbitmq');
             const ch = await conn.createChannel();
-            await ch.consume(queue, Message, {noAck: false})
+            let message = await ch.get(queue, { noack: false });
+            message = JSON.parse(message);
 
-
-            function Message(msg) {
-                console.log('Received:', msg.content.toString());
-                message = msg.content.toString();
-                message = JSON.parse(message);
-            }
 
             for (let i =0; i< message.length; i++) {
                 await Clinic.create({
