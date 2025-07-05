@@ -17,22 +17,24 @@ class Url {
                 if (message) {
                     message = JSON.parse(message.content.toString());
                     messages.push(message);
+
+                    for (let i =0; i< message.length; i++) {
+                        await Clinic.create({
+                            name: message[i].name,
+                            age: message[i].age,
+                            health: message[i].health,
+                            hungry: message[i].hungry,
+                            mood: message[i].mood,
+                            status: message[i].status
+                        });
+                    }
                 }
 
             } while (message);
 
 
 
-            for (let i =0; i< message.length; i++) {
-                await Clinic.create({
-                    name: message[i].name,
-                    age: message[i].age,
-                    health: message[i].health,
-                    hungry: message[i].hungry,
-                    mood: message[i].mood,
-                    status: message[i].status
-                });
-            }
+
             await ch.close();
             await conn.close();
 
