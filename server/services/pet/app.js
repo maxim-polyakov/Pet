@@ -51,7 +51,7 @@ async function Timer() {
     }
 }
 
-const ServerPort = process.env.SERVER_PORT ?? 5000;
+const ServerPort = process.env.SERVER_PORT ?? 5001;
 
 //  Инициализация expressjs.
 const app = express();

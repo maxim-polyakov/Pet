@@ -13,7 +13,7 @@ import apiRouter from './routes/index.js';
 
 
 
-const ServerPort = process.env.SERVER_PORT ?? 5000;
+const ServerPort = process.env.SERVER_PORT ?? 5002;
 
 //  Инициализация expressjs.
 const app = express();

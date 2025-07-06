@@ -25,6 +25,12 @@ services:
       - DB_PASSWORD=gaTResKPJX25
       - DB_SCHEMA=public
       - JWT_SECRET=UmisTestSignKey
+  images:
+    build: ./services/fileuploader
+    ports:
+      - "5003:5003"
+    environment:
+      - SERVER_PORT=5003
   api-gateway:
     build: ./api-gateway
     ports:
@@ -32,6 +38,7 @@ services:
     environment:
       - PET_SERVICE_URL=http://pet:5001
       - CLINIC_SERVICE_URL=http://clinic:5002
+      - FILEUPLOADER_SERVICE_URL=http://images:5003
       - PORT=5000
   rabbitmq:
     image: rabbitmq:management
