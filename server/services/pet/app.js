@@ -45,7 +45,8 @@ async function Timer() {
             mood: mood,
             status: status
         });
-        await createResult.save()
+        await createResult.save();
+        await db.close();
 
     }
 }
