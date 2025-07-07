@@ -3,3 +3,4 @@
 /server/services/pet/node_modules
 /server/services/clinic/node_modules
 /server/services/fileuploader/node_modules
+/server/services/park/node_modules
