@@ -34,6 +34,14 @@ services:
       - "5003:5003"
     environment:
       - SERVER_PORT=5003
+  park:
+    build: ./services/park
+    restart: unless-stopped
+    ports:
+      - "5006:5006"
+    environment:
+      - PORT=5006
+      - DATABASE_URL=postgres://postgres:postgres@localhost/postgres
   api-gateway:
     build: ./api-gateway
     restart: unless-stopped
@@ -72,6 +80,18 @@ services:
       - "5434:5432"
     volumes:
       - pgdata2:/var/lib/postgresql/data
+  tdb:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: BotsMemory
+    ports:
+      - "5435:5432"
+    volumes:
+      - pgdata3:/var/lib/postgresql/data
 volumes:
   pgdata1:
   pgdata2:
+  pgdata3:
