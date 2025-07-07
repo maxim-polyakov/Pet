@@ -41,7 +41,7 @@ services:
       - "5006:5006"
     environment:
       - PORT=5006
-      - DATABASE_URL=postgres://postgres:postgres@tdb:5432/BotsMemory
+      - DATABASE_URL=postgres://postgres:postgres@tdb/BotsMemory
   api-gateway:
     build: ./api-gateway
     restart: unless-stopped
@@ -59,7 +59,7 @@ services:
       - "5672:5672"
       - "15672:15672"
   fdb:
-    image: postgres:15
+    image: postgres:latest
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
@@ -67,10 +67,8 @@ services:
       POSTGRES_DB: BotsMemory
     ports:
       - "5433:5432"
-    volumes:
-      - pgdata1:/var/lib/postgresql/data
   sdb:
-    image: postgres:15
+    image: postgres:latest
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
@@ -78,20 +76,12 @@ services:
       POSTGRES_DB: BotsMemory
     ports:
       - "5434:5432"
-    volumes:
-      - pgdata2:/var/lib/postgresql/data
   tdb:
-    image: postgres:15
+    image: postgres:latest
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: BotsMemory
     ports:
-      - "5435:5432"
-    volumes:
-      - pgdata3:/var/lib/postgresql/data
-volumes:
-  pgdata1:
-  pgdata2:
-  pgdata3:
+      - "5436:5432"
