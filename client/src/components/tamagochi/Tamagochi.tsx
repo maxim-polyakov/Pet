@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Tamagochi.module.css';
 import { Create_pet, Get_pets, Feed, Heal, Play } from '../../http/pet/Pet_API';
 
@@ -50,6 +50,15 @@ const Tamagochi = () => {
     async function toPlay(){
         playdata = await Play(id);
     }
+
+    useEffect(() => {
+        // определяем и вызываем async-функцию внутри useeffect
+        const fetchData = async () => {
+            setInterval(Pets, 1000);
+        };
+        
+        fetchData();
+    }, []);
 
   return (
     <div>
