@@ -14,7 +14,9 @@ class Url {
             let message
             do {
                 message = await ch.get(queue, { noack: false });
-                if (message) {
+                console.log(message)
+                if (message &&  message.fields.deliveryTag) {
+                    await ch.ack(message);
                     message = JSON.parse(message.content.toString());
                     messages.push(message);
 
@@ -28,6 +30,7 @@ class Url {
                             status: message[i].status
                         });
                     }
+
                 }
 
             } while (message);
