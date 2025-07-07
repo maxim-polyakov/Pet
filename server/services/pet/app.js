@@ -69,12 +69,13 @@ const listeningListener = () => {
 const start = async () => {
     try
     {
-        await db.authenticate();
-        await db.sync()
+        await db.authenticate()
             .then(async () => {
-                setInterval(Timer, 100000);
+            setInterval(Timer, 100000);
 
-            })
+        });
+        await db.sync();
+
         app.listen(ServerPort, listeningListener);
     }catch (error)
     {
