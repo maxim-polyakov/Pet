@@ -1,6 +1,7 @@
 services:
   pet:
     build: ./services/pet
+    restart: unless-stopped
     ports:
       - "5001:5001"
     environment:
@@ -14,6 +15,7 @@ services:
       - JWT_SECRET=UmisTestSignKey
   clinic:
     build: ./services/clinic
+    restart: unless-stopped
     ports:
       - "5002:5002"
     environment:
@@ -27,12 +29,14 @@ services:
       - JWT_SECRET=UmisTestSignKey
   images:
     build: ./services/fileuploader
+    restart: unless-stopped
     ports:
       - "5003:5003"
     environment:
       - SERVER_PORT=5003
   api-gateway:
     build: ./api-gateway
+    restart: unless-stopped
     ports:
       - "5000:5000"
     environment:
@@ -42,6 +46,7 @@ services:
       - PORT=5000
   rabbitmq:
     image: rabbitmq:management
+    restart: unless-stopped
     ports:
       - "5672:5672"
       - "15672:15672"
