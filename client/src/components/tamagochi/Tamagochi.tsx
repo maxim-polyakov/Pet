@@ -22,11 +22,12 @@ const Tamagochi = () => {
 
     async function Pets() {
 
-        pets = await Get_pets();
-        const body = document.querySelector('tbody');
-        let tags = "";
-        pets.map(d => {
-            tags += `<tr>
+        try {
+            pets = await Get_pets();
+            const body = document.querySelector('tbody');
+            let tags = "";
+            pets.map(d => {
+                tags += `<tr>
                 <td>${d.id}</td>
                 <td>${d.name}</td>
                 <td>${d.age}</td>
@@ -35,8 +36,11 @@ const Tamagochi = () => {
                 <td>${d.mood}</td>
                 <td>${d.status}</td>
                 </tr>`;
-        })
-        body.innerHTML = tags;
+            })
+            body.innerHTML = tags;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async function toFeed () {
@@ -56,7 +60,7 @@ const Tamagochi = () => {
         const fetchData = async () => {
             setInterval(Pets, 1000);
         };
-        
+
         fetchData();
     }, []);
 
