@@ -41,7 +41,7 @@ services:
       - "5006:5006"
     environment:
       - PORT=5006
-      - DATABASE_URL=postgres://postgres:postgres@tdb/postgres
+      - DATABASE_URL=postgres://postgres:postgres@tdb/BotsMemory
   api-gateway:
     build: ./api-gateway
     restart: unless-stopped
