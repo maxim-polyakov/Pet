@@ -1,14 +1,11 @@
-import { Controller, Get, Post, Body, Inject } from "@nestjs/common";
+import { Controller, Get, Post, Body } from "@nestjs/common";
 import { ParkService } from "./park.service";
 import { ParkDto } from "./dto/park.dto";
-import { ClientProxy, MessagePattern, Payload } from "@nestjs/microservices";
+import { MessagePattern, Payload } from "@nestjs/microservices";
 
 @Controller("park")
 export class ParkController {
-  constructor(
-    @Inject("RABBIT_MQ_SERVICE") private readonly client: ClientProxy,
-    private readonly parkService: ParkService,
-  ) {}
+  constructor(private readonly parkService: ParkService) {}
 
   @Get("/pets")
   pets() {

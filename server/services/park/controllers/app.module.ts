@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { ParkModule } from "./park/park.module";
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigModule } from "@nestjs/config";
 
 @Module({
