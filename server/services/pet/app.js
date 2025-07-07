@@ -46,7 +46,6 @@ async function Timer() {
             status: status
         });
         await createResult.save();
-        await db.close();
 
     }
 }

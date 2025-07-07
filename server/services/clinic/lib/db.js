@@ -15,13 +15,7 @@ const db = new Sequelize(
             timestamps: true,
             freezeTableName: true,
         },
-        ssl: true,
-        dialectOptions: {
-            useUTC: false,
-            ssl: {
-                "require": true
-            }
-        },
+        dialectOptions: {},
         timezone: '+3:00'
     },
 );

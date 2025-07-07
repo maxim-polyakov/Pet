@@ -6,11 +6,11 @@ services:
       - "5001:5001"
     environment:
       - SERVER_PORT=5001
-      - DB_HOST=ep-round-paper-091468-pooler.us-east-2.aws.neon.tech
+      - DB_HOST=fdb
       - DB_PORT=5432
       - DB_NAME=BotsMemory
-      - DB_USER=maxim7012
-      - DB_PASSWORD=npg_e1j3CoBsItyd
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
       - DB_SCHEMA=public
       - JWT_SECRET=UmisTestSignKey
   clinic:
@@ -20,11 +20,11 @@ services:
       - "5002:5002"
     environment:
       - SERVER_PORT=5002
-      - DB_HOST=ep-round-paper-091468-pooler.us-east-2.aws.neon.tech
+      - DB_HOST=sdb
       - DB_PORT=5432
-      - DB_NAME=Shop
+      - DB_NAME=BotsMemory
       - DB_USER=postgres
-      - DB_PASSWORD=gaTResKPJX25
+      - DB_PASSWORD=postgres
       - DB_SCHEMA=public
       - JWT_SECRET=UmisTestSignKey
   images:
@@ -50,3 +50,28 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  fdb:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: BotsMemory
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
+  sdb:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: BotsMemory
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata2:/var/lib/postgresql/data
+volumes:
+  pgdata1:
+  pgdata2:
