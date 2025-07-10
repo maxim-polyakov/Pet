@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ParkDto } from "./dto/park.dto";
+import { ParkDto } from "../dto/park.dto";
 import { InjectModel } from "@nestjs/sequelize";
 import { Park } from "../models/park.model";
 
@@ -24,5 +24,9 @@ export class ParkService {
       status: thedata.status,
     });
     return result;
+  }
+
+  async deleteall(){
+    await this.parkModel.truncate()
   }
 }

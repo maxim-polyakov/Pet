@@ -1,10 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
-
+const ServerPort = process.env.SERVER_PORT ?? 5003;
 import path from 'path';
 import { fileURLToPath } from 'url';
-const ServerPort = process.env.SERVER_PORT ?? 5003;
+
 import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
